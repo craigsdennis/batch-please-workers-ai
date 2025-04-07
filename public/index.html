@@ -1,31 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hello, World!</title>
+		<link rel="stylesheet" href="/styles.css" />
+		<title>Batching Explorer</title>
 	</head>
 	<body>
-		<h1 id="heading"></h1>
-		<button id="button" type="button">Fetch a random UUID</button>
-		<output id="random" for="button"></output>
-		<script>
-			fetch('/message')
-				.then((resp) => resp.text())
-				.then((text) => {
-					const h1 = document.getElementById('heading');
-					h1.textContent = text;
-				});
+		<div class="container">
+			<h1>Batching Explorer</h1>
+			<p>This is an interactive exploration of how to batch requests with Workers AI</p>
 
-			const button = document.getElementById("button");
-			button.addEventListener("click", () => {
-				fetch('/random')
-					.then((resp) => resp.text())
-					.then((text) => {
-						const random = document.getElementById('random');
-						random.textContent = text;
-					});
-			});
-		</script>
+			<div class="example">
+				<h2 class="example-title">Batch Prompts without External Reference</h2>
+				<div class="example-container">
+					<div class="code-section">
+						<h3>Example Code</h3>
+						<div class="code-block">
+const queries = [ "Something like this (see example)" ];
+const requests = queries.map((req) => { return {prompt: req} });
+const results = await env.AI.run(model, { requests });
+// results have an id that match the original requests arrays order
+						</div>
+					</div>
+
+					<div class="interaction-section">
+						<h3>Try it</h3>
+						<div>
+							<div>
+								<button id="generate-prompts-btn">Generate Example Prompts</button>
+							</div>
+							<textarea id="batch-prompts" placeholder="Enter JSON array of prompts..."></textarea>
+							<div class="radio-option">
+								<input type="checkbox" id="queue-request" name="queue-request" />
+								<label for="queue-request">Queue Request (async processing)</label>
+							</div>
+							<button id="submit-batch-btn">Submit Batch</button>
+						</div>
+						<div id="response-container" class="response-container" style="display: none"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="example">
+				<h2 class="example-title">Batch Prompts with External Reference</h2>
+				<div class="example-container">
+					<div class="code-section">
+						<h3>Example Code</h3>
+						<div class="code-block">
+const users = [{ username: 'user1', profileStatus: 'Status text' }];
+const requests = users.map((user) => { 
+  return {
+    prompt: `Translate: ${user.profileStatus}`,
+    external_reference: user.username
+  } 
+});
+const results = await env.AI.run(model, { requests });
+// Results include external_reference to match responses to original data
+						</div>
+					</div>
+
+					<div class="interaction-section">
+						<h3>Try it</h3>
+						<div>
+							<div>
+								<button id="generate-users-btn">Generate Fake Users</button>
+							</div>
+							<textarea id="batch-users" placeholder="Enter JSON array of user objects..."></textarea>
+							<div class="radio-option">
+								<input type="checkbox" id="queue-users-request" name="queue-users-request" />
+								<label for="queue-users-request">Queue Request (async processing)</label>
+							</div>
+							<button id="submit-users-batch-btn">Submit Batch with References</button>
+						</div>
+						<div id="users-response-container" class="response-container" style="display: none"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<footer class="footer">
+			<p>Made with 🧡 using <a href="https://developers.cloudflare.com" target="_blank">Cloudflare Workers</a>, <a href="https://hono.dev" target="_blank">Hono</a>, <a href="https://developers.cloudflare.com/workers-ai/" target="_blank">Workers AI</a> and <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview" target="_blank">Claude Code</a> for vibes.</p>
+		</footer>
+		
+		<script src="/script.js"></script>
 	</body>
 </html>
