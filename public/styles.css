@@ -211,13 +211,13 @@ textarea {
   font-size: 0.9em;
 }
 
-.footer a {
+a {
   color: var(--primary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.footer a:hover {
+a:hover {
   color: #e67e22;
   text-decoration: underline;
 }
