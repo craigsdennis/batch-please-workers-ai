@@ -4,13 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="/styles.css" />
-		<title>Batching Workers AI Requests Explorer</title>
+		<title>Batching Explorer</title>
 	</head>
 	<body>
 		<div class="container">
-			<h1>Batching Workers AI Requests Explorer</h1>
-			<p>This is an interactive exploration of how you can batch your AI requests using Workers AI.</p>
-
+			<h1>Batching Explorer</h1>
+			<p>This is an interactive exploration of how to batch requests with Workers AI. <a href="https://developers.cloudflare.com/workers-ai/features/async-batch-api" target="_blank">Read the docs</a>.</p>
+			<p>If you'd prefer to expore the code, check out the <code>./src/index.ts</code> file and look at the endpoints prefixed with <code>/example</code></p>
 			<div class="example">
 				<h2 class="example-title">Batch Prompts without External Reference</h2>
 				<div class="example-container">
@@ -81,6 +81,7 @@ const results = await env.AI.run(model, { requests });
 
 		<footer class="footer">
 			<p>Made with 🧡 using <a href="https://developers.cloudflare.com" target="_blank">Cloudflare Workers</a>, <a href="https://hono.dev" target="_blank">Hono</a>, <a href="https://developers.cloudflare.com/workers-ai/" target="_blank">Workers AI</a> and <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview" target="_blank">Claude Code</a> for vibes.</p>
+			<p><a href="https://github.com/craigsdennis/batch-please-workers-ai" target="_blank">👀 the code</a></p>
 		</footer>
 
 		<script src="/script.js"></script>
