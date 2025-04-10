@@ -37,9 +37,24 @@ app.post('/example/batch/with-reference', async (c) => {
 	// that you will want to sync up with the results.
 	const requests = payload.users.map((user) => {
 		return {
-			prompt: `Translate the following to Spanish: ${user.profileStatus}`,
-			external_reference: user.username
-		}
+			prompt: `Extract the company names from this profile status: ${user.profileStatus}`,
+			external_reference: user.username,
+			response_format: {
+				type: 'json_schema',
+				json_schema: {
+					type: 'object',
+					properties: {
+						companies: {
+							type: 'array',
+							items: {
+								type: 'string',
+								description: 'The name of the company',
+							},
+						},
+					},
+				},
+			},
+		};
 	});
 	const response = await env.AI.run(
 		'@cf/meta/ray-llama-3.3-70b-instruct-fp8-fast',
@@ -48,11 +63,11 @@ app.post('/example/batch/with-reference', async (c) => {
 		},
 		{ queueRequest: payload.queueRequest || false }
 	);
-	return c.json({response});
+	return c.json({ response });
 });
 
 // Helper method to generate examples
-app.get("/generate/prompts", async(c) => {
+app.get('/generate/prompts', async (c) => {
 	const results = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
 		prompt: 'Generate 10 prompts that someone might ask an LLM',
 		response_format: {
@@ -64,7 +79,7 @@ app.get("/generate/prompts", async(c) => {
 						type: 'array',
 						items: {
 							type: 'string',
-							description: "A short prompt that a user might ask an LLM"
+							description: 'A short prompt that a user might ask an LLM',
 						},
 					},
 				},
