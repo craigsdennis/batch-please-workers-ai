@@ -3,7 +3,7 @@
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/craigsdennis/batch-please-workers-ai)
 
 <!-- dash-content-start -->
-This template provides example API implementations that show off how to batch your AI requests on Workers AI.
+This template provides example API implementations that show off how to batch your AI requests on Workers AI. [Read the Batch API docs](https:/developers.cloudflare.com/workers-ai/features/batch-api/)
 
 It demonstrates how to make use of the async queue functionality, as well as check the current status.
 

@@ -20,7 +20,7 @@ app.post('/example/batch', async (c) => {
 		return { prompt: q };
 	});
 	const response = await env.AI.run(
-		'@cf/meta/ray-llama-3.3-70b-instruct-fp8-fast',
+		'@cf/meta/llama-3.3-70b-instruct-fp8-fast',
 		{
 			requests,
 		},
@@ -57,7 +57,7 @@ app.post('/example/batch/with-reference', async (c) => {
 		};
 	});
 	const response = await env.AI.run(
-		'@cf/meta/ray-llama-3.3-70b-instruct-fp8-fast',
+		'@cf/meta/llama-3.3-70b-instruct-fp8-fast',
 		{
 			requests,
 		},
@@ -128,7 +128,7 @@ app.get('/check-request', async (c) => {
 	const id = c.req.query('id');
 	console.log({ id });
 	// Use this pattern to poll for your async response status
-	const response = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-batch', {
+	const response = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
 		request_id: id,
 	});
 	return c.json(response);
