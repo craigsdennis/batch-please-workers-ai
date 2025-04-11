@@ -242,10 +242,18 @@ function pollForResults(requestId, model, containerElement, statusElementId = "p
 
       const statusData = await checkResponse.json();
 
-      // If still queued, poll again after 2 second
+      // If still queued, poll again after 1 second
       if (statusData.status === 'queued') {
-        statusElement.textContent = `Status: Queued (Attempt ${pollAttempt}) - checking again in 2 seconds...`;
-        setTimeout(checkStatus, 2000);
+        containerElement.innerHTML = `
+          <div>
+            <h4>Request queued - polling for results...</h4>
+            <p>Request ID: ${requestId}</p>
+            <div id="${statusElementId}">Status: Queued (Attempt ${pollAttempt}) - checking again in 1 second...</div>
+            <h4>Current Status Response:</h4>
+            <pre>${JSON.stringify(statusData, null, 2)}</pre>
+          </div>
+        `;
+        setTimeout(checkStatus, 1000);
       } else {
         // Results are ready, show them
         containerElement.innerHTML = `
