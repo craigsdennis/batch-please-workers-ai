@@ -12,7 +12,7 @@
 			<p>This is an interactive exploration of how to batch requests with Workers AI. <a href="https://developers.cloudflare.com/workers-ai/features/batch-api" target="_blank">Read the docs</a>.</p>
 			<p>If you'd prefer to explore the code, check out the <code>./src/index.ts</code> file and look at the endpoints prefixed with <code>/example</code></p>
 			<div class="example">
-				<h2 class="example-title">Batch Prompts without External Reference</h2>
+				<h2 class="example-title">Translate Multiple Sentences</h2>
 				<div class="example-container">
 					<div class="code-section">
 						<h3>Example Code</h3>
@@ -31,10 +31,6 @@ const results = await env.AI.run(model, { requests });
 								<button id="generate-prompts-btn">Generate Example Prompts</button>
 							</div>
 							<textarea id="batch-prompts" placeholder="Enter JSON array of prompts..."></textarea>
-							<div class="radio-option">
-								<input type="checkbox" id="queue-request" name="queue-request" />
-								<label for="queue-request">Queue Request (async processing)</label>
-							</div>
 							<button id="submit-batch-btn">Submit Batch</button>
 						</div>
 						<div id="response-container" class="response-container" style="display: none"></div>
@@ -43,7 +39,7 @@ const results = await env.AI.run(model, { requests });
 			</div>
 
 			<div class="example">
-				<h2 class="example-title">Batch Prompts with External Reference</h2>
+				<h2 class="example-title">Translate User Status Messages</h2>
 				<div class="example-container">
 					<div class="code-section">
 						<h3>Example Code</h3>
@@ -67,10 +63,6 @@ const results = await env.AI.run(model, { requests });
 								<button id="generate-users-btn">Generate Fake Users</button>
 							</div>
 							<textarea id="batch-users" placeholder="Enter JSON array of user objects..."></textarea>
-							<div class="radio-option">
-								<input type="checkbox" id="queue-users-request" name="queue-users-request" />
-								<label for="queue-users-request">Queue Request (async processing)</label>
-							</div>
 							<button id="submit-users-batch-btn">Submit Batch with References</button>
 						</div>
 						<div id="users-response-container" class="response-container" style="display: none"></div>
