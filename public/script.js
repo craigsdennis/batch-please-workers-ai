@@ -107,8 +107,7 @@ function setupBatchRequestExample() {
     }
   });
 
-  // Initialize textarea with empty placeholder text
-  promptsTextarea.value = 'Click "Generate Example Prompts" to get started';
+  // Let the textarea use its HTML placeholder
 }
 
 function setupBatchWithReferenceExample() {
@@ -221,8 +220,7 @@ function setupBatchWithReferenceExample() {
     }
   });
 
-  // Initialize textarea with empty placeholder text
-  usersTextarea.value = 'Click "Generate Fake Users" to get started';
+  // Let the textarea use its HTML placeholder
 }
 
 function setupBatchExtractExample() {
@@ -335,8 +333,7 @@ function setupBatchExtractExample() {
     }
   });
 
-  // Initialize textarea with empty placeholder text
-  usersTextarea.value = 'Click "Generate Fake Users" to get started';
+  // Let the textarea use its HTML placeholder
 }
 
 // Function to poll for batch request results
