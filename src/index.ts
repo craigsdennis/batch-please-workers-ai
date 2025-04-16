@@ -19,7 +19,7 @@ app.post('/example/batch', async (c) => {
 	const requests = payload.queries.map((q: string) => {
 		return {
 			text: q,
-			target_lang: "es"
+			target_lang: 'es',
 		};
 	});
 	const response = await env.AI.run(
@@ -41,13 +41,52 @@ app.post('/example/batch/with-reference', async (c) => {
 	const requests = payload.users.map((user) => {
 		return {
 			text: user.profileStatus,
-			source_lang: "en",
-			target_lang: "es",
+			source_lang: 'en',
+			target_lang: 'es',
 			external_reference: user.username,
-		}
+		};
 	});
 	const response = await env.AI.run(
 		'@cf/meta/m2m100-1.2b',
+		{
+			requests,
+		},
+		{ queueRequest: true }
+	);
+	return c.json({ response });
+});
+
+app.post('/example/batch/extract', async (c) => {
+	const payload = await c.req.json();
+	// This uses an external reference
+	// Oftentimes your request will have an external_reference/identifier
+	// that you will want to sync up with the results.
+
+	const requests = payload.users.map((user) => {
+		return {
+			prompt: `Extract the company names that are present in the following profile status: ${user.profileStatus}`,
+			external_reference: user.username,
+			response_format: {
+				type: 'json_schema',
+				json_schema: {
+					type: 'object',
+					properties: {
+						companies: {
+							type: 'array',
+							items: {
+								type: 'string',
+								description: 'The name of the company',
+							},
+						},
+					},
+					required: ["companies"]
+				},
+			},
+		};
+	});
+	console.log({requests});
+	const response = await env.AI.run(
+		'@cf/meta/llama-3.3-70b-instruct-fp8-fast',
 		{
 			requests,
 		},

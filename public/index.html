@@ -30,7 +30,7 @@ const results = await env.AI.run(model, { requests });
 							<div>
 								<button id="generate-prompts-btn">Generate Example Prompts</button>
 							</div>
-							<textarea id="batch-prompts" placeholder="Enter JSON array of prompts..."></textarea>
+							<textarea id="batch-prompts" placeholder="Enter JSON array containing prompts. Or generate some example prompts using that button 👆"></textarea>
 							<button id="submit-batch-btn">Submit Batch</button>
 						</div>
 						<div id="response-container" class="response-container" style="display: none"></div>
@@ -62,10 +62,54 @@ const results = await env.AI.run(model, { requests });
 							<div>
 								<button id="generate-users-btn">Generate Fake Users</button>
 							</div>
-							<textarea id="batch-users" placeholder="Enter JSON array of user objects..."></textarea>
+							<textarea id="batch-users" placeholder="Enter a JSON array of user objects. Or generate some example ones 👆"></textarea>
 							<button id="submit-users-batch-btn">Submit Batch with References</button>
 						</div>
 						<div id="users-response-container" class="response-container" style="display: none"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="example">
+				<h2 class="example-title">Extract Company Names from User Status</h2>
+				<div class="example-container">
+					<div class="code-section">
+						<h3>Example Code</h3>
+						<div class="code-block">
+const users = [{ username: 'user1', profileStatus: 'Status text' }];
+const requests = users.map((user) => {
+  return {
+    text: `Extract the company names from the following profile status: ${user.profileStatus}`,
+    external_reference: user.username,
+    response_format: {
+      type: 'json_schema',
+      json_schema: {
+        type: 'object',
+        properties: {
+          companies: {
+            type: 'array',
+            items: { type: 'string' }
+          }
+        }
+      }
+    }
+  }
+});
+const results = await env.AI.run(model, { requests });
+// Results include structured data with companies extracted
+						</div>
+					</div>
+
+					<div class="interaction-section">
+						<h3>Try it</h3>
+						<div>
+							<div>
+								<button id="generate-extract-users-btn">Generate Fake Users</button>
+							</div>
+							<textarea id="extract-users" placeholder="Enter a JSON array of user objects. Or generate some example ones 👆"></textarea>
+							<button id="submit-extract-btn">Extract Company Names</button>
+						</div>
+						<div id="extract-response-container" class="response-container" style="display: none"></div>
 					</div>
 				</div>
 			</div>
