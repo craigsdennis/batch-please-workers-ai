@@ -74,7 +74,7 @@ function setupBatchRequestExample() {
         // Check if we need to poll for results
         if (data.response && data.response.request_id) {
           const requestId = data.response.request_id;
-          const model = data.response.model;
+          const model = data.model;
 
           responseContainer.innerHTML = `
             <div>
@@ -187,7 +187,7 @@ function setupBatchWithReferenceExample() {
         // Check if we need to poll for results
         if (data.response && data.response.request_id) {
           const requestId = data.response.request_id;
-          const model = data.response.model;
+          const model = data.model;
 
           usersResponseContainer.innerHTML = `
             <div>
@@ -300,7 +300,7 @@ function setupBatchExtractExample() {
         // Check if we need to poll for results
         if (data.response && data.response.request_id) {
           const requestId = data.response.request_id;
-          const model = data.response.model;
+          const model = data.model;
 
           responseContainer.innerHTML = `
             <div>
